@@ -3,14 +3,14 @@
 ## 5.5
 
 ### 5.5.0
-* kernelspec: ensure path is writable before writing kernel.json. [#593](https://github.com/ipython/ipykernel/pull/593)
-* Add configure_inline_support and call it in the shell. [#590](https://github.com/ipython/ipykernel/pull/590)
+* kernelspec: ensure path is writable before writing `kernel.json`. [#593](https://github.com/ipython/ipykernel/pull/593)
+* Add `configure_inline_support` and call it in the shell. [#590](https://github.com/ipython/ipykernel/pull/590)
 
 ## 5.4
 
 ### 5.4.3
 
-* Rework wait_for_ready logic. [#578](https://github.com/ipython/ipykernel/pull/578)
+* Rework `wait_for_ready` logic. [#578](https://github.com/ipython/ipykernel/pull/578)
 
 ### 5.4.2
 
