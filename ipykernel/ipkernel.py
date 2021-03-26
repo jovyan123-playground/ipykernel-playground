@@ -309,11 +309,17 @@ class IPythonKernel(KernelBase):
 
             if (
                 _asyncio_runner
-                and should_run_async(code, transformed_cell=transformed_cell, preprocessing_exc_tuple=preprocessing_exc_tuple)
                 and shell.loop_runner is _asyncio_runner
                 and asyncio.get_event_loop().is_running()
+                and should_run_async(code, transformed_cell=transformed_cell, preprocessing_exc_tuple=preprocessing_exc_tuple)
             ):
-                coro = run_cell(code, store_history=store_history, silent=silent)
+                coro = run_cell(
+                    code,
+                    store_history=store_history,
+                    silent=silent,
+                    transformed_cell=transformed_cell,
+                    preprocessing_exc_tuple=preprocessing_exc_tuple
+                )
                 coro_future = asyncio.ensure_future(coro)
 
                 with self._cancel_on_sigint(coro_future):
@@ -328,7 +334,11 @@ class IPythonKernel(KernelBase):
                 # runner isn't already running,
                 # make synchronous call,
                 # letting shell dispatch to loop runners
-                res = shell.run_cell(code, store_history=store_history, silent=silent)
+                res = shell.run_cell(
+                    code,
+                    store_history=store_history,
+                    silent=silent
+                )
         finally:
             self._restore_input()
 
