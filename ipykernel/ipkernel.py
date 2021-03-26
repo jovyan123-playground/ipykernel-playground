@@ -309,9 +309,9 @@ class IPythonKernel(KernelBase):
 
             if (
                 _asyncio_runner
-                and should_run_async(code, transformed_cell=transformed_cell, preprocessing_exc_tuple=preprocessing_exc_tuple)
                 and shell.loop_runner is _asyncio_runner
                 and asyncio.get_event_loop().is_running()
+                and should_run_async(code, transformed_cell=transformed_cell, preprocessing_exc_tuple=preprocessing_exc_tuple)
             ):
                 coro = run_cell(
                     code,
@@ -337,9 +337,7 @@ class IPythonKernel(KernelBase):
                 res = shell.run_cell(
                     code,
                     store_history=store_history,
-                    silent=silent,
-                    transformed_cell=transformed_cell,
-                    preprocessing_exc_tuple=preprocessing_exc_tuple
+                    silent=silent
                 )
         finally:
             self._restore_input()
