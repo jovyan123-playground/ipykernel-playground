@@ -2,6 +2,10 @@
 
 This package provides the IPython kernel for Jupyter.
 
+## Silly change
+
+this is a silly change
+
 ## Installation from source
 
 1. `git clone`
