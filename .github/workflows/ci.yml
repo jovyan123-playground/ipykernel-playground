@@ -2,9 +2,9 @@ name: ipykernel tests
 
 on:
   push:
-    branches: [master]
+    branches: ['5.5.x-test']
   pull_request:
-    branches: [master]
+    branches: ['5.5.x-test']
 
 jobs:
   build:
