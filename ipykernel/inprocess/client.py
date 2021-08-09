@@ -181,16 +181,24 @@ class InProcessKernelClient(KernelClient):
         self.shell_channel.call_handlers_later(reply_msg)
 
     def get_shell_msg(self, block=True, timeout=None):
-        return  self.shell_channel.get_msg(block, timeout)
+        if not block:
+            timeout = 0
+        return self.shell_channel.get_msg(timeout)
 
     def get_iopub_msg(self, block=True, timeout=None):
-        return  self.iopub_channel.get_msg(block, timeout)
+        if not block:
+            timeout = 0
+        return self.iopub_channel.get_msg(timeout)
 
     def get_stdin_msg(self, block=True, timeout=None):
-        return  self.stdin_channel.get_msg(block, timeout)
+        if not block:
+            timeout = 0
+        return self.stdin_channel.get_msg(timeout)
 
     def get_control_msg(self, block=True, timeout=None):
-        return  self.control_channel.get_msg(block, timeout)
+        if not block:
+            timeout = 0
+        return self.control_channel.get_msg(timeout)
 
 
 #-----------------------------------------------------------------------------
