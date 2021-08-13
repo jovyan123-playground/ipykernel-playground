@@ -53,7 +53,7 @@ jobs:
         pip freeze
         pip check
     - name: Run the tests
-      timeout-minutes: 10
+      timeout-minutes: 15
       run: |
         pytest ipykernel -vv -s --cov ipykernel --cov-branch --cov-report term-missing:skip-covered --durations 10
     - name: Build the docs

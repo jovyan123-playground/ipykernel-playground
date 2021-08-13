@@ -792,8 +792,7 @@ class Kernel(SingletonConfigurable):
         pgid = os.getpgid(pid)
 
         if os.name == "nt":
-            from jupyter_client.win_interrupt import send_interrupt
-            send_interrupt(self.interrupt)
+            self.log.error("Interrupt message not supported on Windows")
 
         else:
             if pgid and hasattr(os, "killpg"):
