@@ -419,6 +419,22 @@ def test_interrupt_during_pdb_set_trace():
         validate_message(reply, 'execute_reply', msg_id2)
 
 
+def test_interrupt_with_message():
+    """
+
+    """
+    with new_kernel() as kc:
+        km = kc.parent
+        km.kernel_spec.interrupt_mode = "message"
+        msg_id = kc.execute("input()")
+        time.sleep(1)  # Make sure it's actually waiting for input.
+        km.interrupt_kernel()
+        from .test_message_spec import validate_message
+        # If we failed to interrupt interrupt, this will timeout:
+        reply = get_reply(kc, msg_id, TIMEOUT)
+        validate_message(reply, 'execute_reply', msg_id)
+
+
 def test_control_thread_priority():
 
     N = 5
