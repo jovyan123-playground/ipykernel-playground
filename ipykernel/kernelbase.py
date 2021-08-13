@@ -108,6 +108,11 @@ class Kernel(SingletonConfigurable):
     stdin_socket = Any()
     log = Instance(logging.Logger, allow_none=True)
 
+    interrupt = Integer(0,
+        help="""ONLY USED ON WINDOWS
+        Interrupt this process.
+        """).tag(config=True)
+
     # identities:
     int_id = Integer(-1)
     ident = Unicode()
@@ -787,8 +792,8 @@ class Kernel(SingletonConfigurable):
         pgid = os.getpgid(pid)
 
         if os.name == "nt":
-            from signal import CTRL_C_EVENT
-            os.kill(pid, CTRL_C_EVENT)
+            from jupyter_client.win_interrupt import send_interrupt
+            send_interrupt(self.interrupt)
 
         else:
             if pgid and hasattr(os, "killpg"):

@@ -181,6 +181,9 @@ class IPKernelApp(BaseIPythonApplication, InteractiveShellApp,
 
     def init_poller(self):
         if sys.platform == 'win32':
+            if not self.interrupt and not self.parent_handle:
+                from jupyter_client.win_interrupt import create_interrupt_event
+                self.interrupt = create_interrupt_event()
             if self.interrupt or self.parent_handle:
                 self.poller = ParentPollerWindows(self.interrupt, self.parent_handle)
         elif self.parent_handle and self.parent_handle != 1:
@@ -497,6 +500,7 @@ class IPKernelApp(BaseIPythonApplication, InteractiveShellApp,
                                 stdin_socket=self.stdin_socket,
                                 log=self.log,
                                 profile_dir=self.profile_dir,
+                                interrupt=self.interrupt,
                                 user_ns=self.user_ns,
         )
         kernel.record_ports({
