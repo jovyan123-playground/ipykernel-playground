@@ -785,16 +785,23 @@ class Kernel(SingletonConfigurable):
         # Prefer process-group over process
         pid = os.getpid()
         pgid = os.getpgid(pid)
-        if pgid and hasattr(os, "killpg"):
+
+        if os.name == "nt":
+            from signal import CTRL_C_EVENT
+            os.kill(pid, CTRL_C_EVENT)
+
+        else:
+            if pgid and hasattr(os, "killpg"):
+                try:
+                    os.killpg(pgid, SIGINT)
+                    return
+                except OSError:
+                    pass
             try:
-                os.killpg(pgid, SIGINT)
-                return
+                os.kill(pid, SIGINT)
             except OSError:
                 pass
-        try:
-            os.kill(pid, SIGINT)
-        except OSError:
-            pass
+
         content = parent['content']
         self.session.send(stream, 'interrupt_reply', content, parent, ident=ident)
         return
