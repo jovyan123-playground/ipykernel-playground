@@ -108,11 +108,6 @@ class Kernel(SingletonConfigurable):
     stdin_socket = Any()
     log = Instance(logging.Logger, allow_none=True)
 
-    interrupt = Integer(0,
-        help="""ONLY USED ON WINDOWS
-        Interrupt this process.
-        """).tag(config=True)
-
     # identities:
     int_id = Integer(-1)
     ident = Unicode()
@@ -787,7 +782,6 @@ class Kernel(SingletonConfigurable):
         self.log.debug("%s", msg)
 
     async def interrupt_request(self, stream, ident, parent):
-        # Prefer process-group over process
         pid = os.getpid()
         pgid = os.getpgid(pid)
 
@@ -795,6 +789,7 @@ class Kernel(SingletonConfigurable):
             self.log.error("Interrupt message not supported on Windows")
 
         else:
+            # Prefer process-group over process
             if pgid and hasattr(os, "killpg"):
                 try:
                     os.killpg(pgid, SIGINT)
