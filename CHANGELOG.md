@@ -5,6 +5,8 @@
 
 ## 6.1.0
 
+<!-- <START NEW CHANGELOG ENTRY> -->
+
 ### Enhancements made
 
 - Implemented `richInspectVariable` request handler [#734](https://github.com/ipython/ipykernel/pull/734) ([@JohanMabille](https://github.com/JohanMabille))
@@ -16,6 +18,8 @@
 ### Bug Fixes
 
 - Fix exception raised by `OutStream.write` [#726](https://github.com/ipython/ipykernel/pull/726) ([@SimonKrughoff](https://github.com/SimonKrughoff))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 6.0
 
