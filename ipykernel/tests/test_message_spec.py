@@ -8,15 +8,9 @@ import sys
 from distutils.version import LooseVersion as V
 from queue import Empty
 
-<<<<<<< HEAD
-import nose.tools as nt
-
 import pytest
 
 import jupyter_client
-=======
-import pytest
->>>>>>> 9e92baf (remove some nose)
 
 from traitlets import (
     HasTraits, TraitError, Bool, Unicode, Dict, Integer, List, Enum
